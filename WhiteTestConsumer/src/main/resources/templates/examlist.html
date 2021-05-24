@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Exam List</title>
+<style type="text/css">
+	span {
+        display: inline-block;
+        width: 280px;
+        text-align: left;
+    }
+</style>
+</head>
+<body>
+
+<div align="center">
+	<h2> Exam List</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>Exam Code</th>
+				<th>Exam Name</th>
+			</tr>
+		</thead>
+<tbody  th:if="${not #lists.isEmpty(response.examList)}">
+<tr th:each ="exam , state : ${response.examList}">
+	<td th:text="${exam.code}"></td>
+	<td th:text="${exam.name}"></td>
+</tr>
+</tbody>
+
+</table>
+</div>
+
+</body>
+</html>

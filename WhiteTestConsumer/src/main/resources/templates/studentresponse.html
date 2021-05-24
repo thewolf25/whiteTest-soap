@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Exam </title>
+<style type="text/css">
+	span {
+        display: inline-block;
+        width: 280px;
+        text-align: left;
+    }
+    .title{
+    	width: auto;
+    	position: absolute;
+    	left: 33%;
+    	
+    }
+    
+    
+    
+</style>
+</head>
+<body>
+
+<div align="center">
+	<h2> Exam reservation</h2>
+	<div th:if="${ #lists.isEmpty(response.badRequests)}">
+	<span> Student Name : </span> <span th:text="${response.student.name}"></span><br/><br/>
+	<strong class="title"> Address </strong><br/><br/>
+	<span>  street : </span> <span th:text="${response.student.address.street}"></span> <br/>
+	<span>  city : </span> <span th:text="${response.student.address.city}"></span> <br/><br/>
+	<strong class="title">Exam </strong><br/><br/>
+		<span>  code : </span> <span th:text="${response.exam.code}"></span> <br/>
+		<span>  name : </span> <span th:text="${response.exam.name}"></span> <br/>
+			<span>  date : </span> <span th:text="${response.date}"></span> <br/>
+	</div>
+	<div th:if="${not #lists.isEmpty(response.badRequests)}">
+		<h4> Reasons why is not accepted </h4>
+		<div th:each ="reason , state : ${response.badRequests}">
+			<span th:text="'Reason '+${state.index+1}+' :'"></span>
+			<span th:text="${reason}"></span><br/>
+		</div>
+	</div>
+	
+</div>
+
+</body>
+</html>
