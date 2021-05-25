@@ -52,13 +52,23 @@ public class WhiteTestService {
 		Exams.add(whiteTestFactory.createExam("EX300","RHCE"));
 	}
 	
+	
+	// we changed the program using factory and stream , because if we run the maven goals 
+	//(clean install compile) , our modification in classes student, exam and address  on (constructor and equals method)
+	//will be deleted 
+	
+	
 	public WhiteTestResponse getWhiteTest(StudentRequest studentRequest) throws DatatypeConfigurationException {
+		
 		WhiteTestResponse whiteTestResponse = new ObjectFactory().createWhiteTestResponse();
 		List<String> badRequests = whiteTestResponse.getBadRequests();
 		Student s = new Student();
 		s.setId(studentRequest.getStudentId());
 		Exam exam = new Exam();
 		exam.setCode(studentRequest.getExamCode());
+		System.out.println(students.stream().filter(st -> st.getId() == s.getId()).count());
+		
+		
 		
 //		if(! students.contains(s)) {
 //			badRequests.add("Student not found !! ");
@@ -77,13 +87,18 @@ public class WhiteTestService {
 			badRequests.add("Exam not found !! ");
 		}
 		
-		if(badRequests.isEmpty()) {
-			whiteTestResponse.setDate(this.getDate());
-			whiteTestResponse.setStudent(students.get(students.indexOf(s)));
-			whiteTestResponse.setExam(Exams.get(Exams.indexOf(exam)));
-			
-		}
+//		if(badRequests.isEmpty()) {
+//			whiteTestResponse.setDate(this.getDate());
+//			whiteTestResponse.setStudent(students.get(students.indexOf(s)));
+//			whiteTestResponse.setExam(Exams.get(Exams.indexOf(exam)));
+//			
+//		}
 		
+		if(badRequests.isEmpty()) {
+		whiteTestResponse.setDate(this.getDate());
+		whiteTestResponse.setStudent(students.stream().filter(st -> st.getId() == s.getId()).findFirst().get());
+		whiteTestResponse.setExam(Exams.stream().filter(st -> st.getCode().equals(exam.getCode())).findFirst().get());
+		}
 		
 		return whiteTestResponse;
 	}

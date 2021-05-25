@@ -7,6 +7,7 @@
 	span {
         display: inline-block;
         width: 280px;
+        margin-left:15px;
         text-align: left;
     }
     .title{
@@ -16,31 +17,47 @@
     	
     }
     
+   
     
     
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+
 </head>
 <body>
 
-<div align="center">
-	<h2> Exam reservation</h2>
-	<div th:if="${ #lists.isEmpty(response.badRequests)}">
-	<span> Student Name : </span> <span th:text="${response.student.name}"></span><br/><br/>
-	<strong class="title"> Address </strong><br/><br/>
-	<span>  street : </span> <span th:text="${response.student.address.street}"></span> <br/>
-	<span>  city : </span> <span th:text="${response.student.address.city}"></span> <br/><br/>
-	<strong class="title">Exam </strong><br/><br/>
-		<span>  code : </span> <span th:text="${response.exam.code}"></span> <br/>
-		<span>  name : </span> <span th:text="${response.exam.name}"></span> <br/>
-			<span>  date : </span> <span th:text="${response.date}"></span> <br/>
+<div class="offset-3 col-6">
+<div class="card text-white col-12">
+  <div class="card-header bg-primary col-12">Exam reservation</div>
+  <div class="card-body text-dark">
+    <div th:if="${ #lists.isEmpty(response.badRequests)}">
+	<h5 class="card-title"> Student Name : </h5>
+	
+	 <span></span><span class="card-text" th:text="${response.student.name}"></span>
+	<h5 class="card-title"> Address </h5>
+	<p class="card-text">
+	<span><strong>street :</strong>  </span> <span th:text="${response.student.address.street}"></span> <br/>
+	<span> <strong>city :</strong>  </span> <span th:text="${response.student.address.city}"></span> 
+	</p>
+	<h5 class="card-title">Exam </h5>
+	<p class="card-text">
+		<span> <strong>code : </strong> </span> <span th:text="${response.exam.code}"></span> <br/>
+		<span> <strong> name : </strong></span> <span th:text="${response.exam.name}"></span> <br/>
+			<span> <strong>date : </strong></span> <span th:text="${response.date}"></span> <br/>
+	</p>
 	</div>
 	<div th:if="${not #lists.isEmpty(response.badRequests)}">
-		<h4> Reasons why is not accepted </h4>
-		<div th:each ="reason , state : ${response.badRequests}">
+		<h5 class="card-title"> Error in Requests</h5>
+		<div class="card-text" th:each ="reason , state : ${response.badRequests}">
 			<span th:text="'Reason '+${state.index+1}+' :'"></span>
 			<span th:text="${reason}"></span><br/>
 		</div>
 	</div>
+  </div>
+</div>
+ 
+	
+	
 	
 </div>
 
